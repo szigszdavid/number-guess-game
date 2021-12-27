@@ -9,11 +9,6 @@ import { bindProxyAndYMap } from "valtio-yjs";
 let roomName
 const ydoc = new Y.Doc();
 
-const websocketProvider = new WebsocketProvider(
-  "wss://demos.yjs.dev",
-  roomName,
-  ydoc
-);
 
 const ymap = ydoc.getMap("messages.v1");
 const state = proxy({ guesses: [], numberToGuess: Math.floor(Math.random() * 100) })
@@ -50,7 +45,15 @@ function TodoList() {
         roomName = input;
         setInput('');
 
+        console.log("Roomname: " + roomName);
         SetRoomReady(true);
+
+        const websocketProvider = new WebsocketProvider(
+            "wss://demos.yjs.dev",
+            roomName,
+            ydoc
+          );
+          
     }
     
     const [todos, setTodos] = useState([])
